@@ -116,12 +116,12 @@ export default {
     is_empty_array(arr) {
       return Object.keys(arr).length === 0 && arr.constructor === Object;
     },
-    verify_comment(commentId) {
+    deleteTreeComments(commentId) {
         Object.keys(this.comments).forEach(key => {
           try {
           if (this.comments[key].pid === commentId) {
             try {
-             this.verify_comment(this.comments[key].uuid);
+             this.deleteTreeComments(this.comments[key].uuid);
             }catch (e){
             }
             this.$delete(this.comments,key);
@@ -133,7 +133,7 @@ export default {
           }});
     },
     removeComment(commentId){
-      this.verify_comment(commentId)
+      this.deleteTreeComments(commentId)
       this.$delete(this.comments,commentId);
       localStorage.setItem('comments',JSON.stringify(this.comments));
     },
